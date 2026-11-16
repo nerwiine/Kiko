@@ -11,8 +11,9 @@
     "windows": [
       {
         "title": "Kiko",
-        "width": 800,
-        "height": 600
+        "width": 1240,
+        "height": 720,
+        "decorations": false
       }
     ],
     "security": {
