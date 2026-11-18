@@ -30,23 +30,20 @@
   
   /* background: blurred cover, drifting fog, grain, vignette */
   .bg{position:fixed;inset:0;z-index:0;overflow:hidden;background:var(--bg)}
-  .art{position:absolute;inset:-12%;background-size:cover;background-position:center;filter:blur(64px) saturate(1.25) brightness(.62);opacity:0;transition:opacity 1.2s ease}
+  .art{position:absolute;inset:0;background-size:cover;background-position:center;opacity:0;transition:opacity 1.2s ease}
   .art.on{opacity:.9}
-  .fog{position:absolute;inset:-20%;filter:blur(30px);animation:drift 38s ease-in-out infinite alternate;
+  .fog{position:absolute;inset:0;
     background:
     radial-gradient(40% 30% at 25% 70%,rgba(95,138,122,.30),transparent 70%),
     radial-gradient(35% 28% at 75% 30%,rgba(140,170,160,.18),transparent 70%),
     radial-gradient(30% 25% at 55% 92%,rgba(227,169,95,.13),transparent 70%)}
-  @keyframes drift{from{transform:translate3d(-3%,2%,0) scale(1)}to{transform:translate3d(4%,-3%,0) scale(1.12)}}
-  .grain{position:absolute;inset:0;opacity:.07;mix-blend-mode:overlay;
+    .grain{position:absolute;inset:0;opacity:.05;
     background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>")}
   .vig{position:absolute;inset:0;background:radial-gradient(120% 90% at 50% 40%,transparent 35%,rgba(0,0,0,.72))}
   
   /* window */
   .win{position:relative;z-index:1;height:100%;max-width:1240px;margin:0 auto;display:grid;grid-template-rows:auto minmax(0,1fr) auto;gap:12px;padding:14px;
-    border-radius:18px;background:rgba(0,0,0,.22);border:1px solid var(--line);
-    -webkit-backdrop-filter:blur(30px) saturate(1.1);backdrop-filter:blur(30px) saturate(1.1);
-    box-shadow:0 30px 80px rgba(0,0,0,.5)}
+    border-radius:18px;background:rgba(6,9,8,.45);border:1px solid var(--line)}
   .top{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
   .brand{display:flex;align-items:baseline;gap:14px;font:600 20px/1 var(--display);letter-spacing:.16em;text-transform:uppercase}
   .sum{font:400 12px var(--mono);letter-spacing:.02em;color:var(--ink-3);text-transform:none}
@@ -58,7 +55,7 @@
   .btn.pri:hover{background:var(--accent);filter:brightness(1.08)}
   
   .main{display:grid;grid-template-columns:minmax(280px,380px) minmax(0,1fr);gap:12px;min-height:0}
-  .panel{min-height:0;min-width:0;background:var(--glass-2);border:1px solid var(--line);border-radius:16px;-webkit-backdrop-filter:blur(20px);backdrop-filter:blur(20px)}
+  .panel{min-height:0;min-width:0;background:var(--glass-2);border:1px solid var(--line);border-radius:16px}
   
   /* queue */
   .queue{display:flex;flex-direction:column;overflow:hidden}
@@ -85,9 +82,9 @@
   .row-x:hover{color:var(--danger)}
   @media (hover:none){.row-x{opacity:1}}
   .eq{display:none;gap:2px;align-items:flex-end;height:14px}
-  .eq span{width:3px;height:30%;background:var(--accent);border-radius:1px;animation:eq .9s ease-in-out infinite alternate}
+  .eq span{width:3px;height:100%;transform-origin:bottom;transform:scaleY(.3);background:var(--accent);border-radius:1px;animation:eq .9s ease-in-out infinite alternate}
   .eq span:nth-child(2){animation-delay:-.3s}.eq span:nth-child(3){animation-delay:-.6s}
-  @keyframes eq{to{height:100%}}
+  @keyframes eq{to{transform:scaleY(1)}}
   .row.cur.playing .idx-n{display:none}
   .row.cur.playing .eq{display:flex}
   .qnone{padding:28px 18px;text-align:center;color:var(--ink-3)}
@@ -141,15 +138,7 @@
   /* overlays */
   .toast{position:absolute;left:50%;bottom:104px;transform:translate(-50%,8px);max-width:min(92%,460px);padding:9px 16px;border-radius:999px;background:rgba(10,14,12,.88);border:1px solid var(--line);font-size:13px;opacity:0;pointer-events:none;transition:opacity .25s,transform .25s;z-index:6;text-align:center}
   .toast.on{opacity:1;transform:translate(-50%,0)}
-  .sheet{position:absolute;inset:0;z-index:7;display:grid;place-items:center;padding:16px;border-radius:18px;background:rgba(0,0,0,.55);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px)}
-  .card{width:min(560px,100%);max-height:100%;overflow:auto;padding:22px;border-radius:16px;background:rgba(14,19,17,.92);border:1px solid var(--line)}
-  .card h2{margin:0 0 4px;font:600 16px var(--display);letter-spacing:.08em;text-transform:uppercase}
-  .card .note{margin:0 0 14px;color:var(--ink-3);font-size:12px}
-  .keys{display:grid;grid-template-columns:auto 1fr;gap:9px 16px;align-items:center}
-  .keys div{display:flex;gap:5px;flex-wrap:wrap}
-  kbd{font:500 12px var(--mono);padding:3px 8px;border-radius:6px;background:rgba(255,255,255,.08);border:1px solid var(--line);color:var(--ink)}
-  .keys span{color:var(--ink-2)}
-  .veil{position:fixed;inset:0;z-index:20;display:grid;place-items:center;padding:24px;text-align:center;background:rgba(5,8,7,.72);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);font:400 22px var(--display);opacity:0;pointer-events:none;transition:opacity .2s}
+  .veil{position:fixed;inset:0;z-index:20;display:grid;place-items:center;padding:24px;text-align:center;background:rgba(5,8,7,.8);font:400 22px var(--display);opacity:0;pointer-events:none;transition:opacity .2s}
   .veil.on{opacity:1}
   
   /* narrow screens */
@@ -175,7 +164,7 @@
     .toast{bottom:150px}
   }
   @media (prefers-reduced-motion:reduce){
-    .fog,.eq span{animation:none}
+    .eq span{animation:none}
     .art{transition:none}
   }
   </style>
@@ -199,11 +188,10 @@
   <div class="bg" aria-hidden="true"><div class="art" id="artA"></div><div class="art" id="artB"></div><div class="fog"></div><div class="grain"></div><div class="vig"></div></div>
   
   <div class="win" id="win">
-    <header class="top">
-      <div class="brand">Kiko <span class="sum" id="sum"></span></div>
+    <header class="top" data-tauri-drag-region>
+      <div class="brand" data-tauri-drag-region>Kiko <span class="sum" id="sum" data-tauri-drag-region></span></div>
       <span class="warn" id="warn" hidden>Браузер не даёт сохранять треки: после перезагрузки очередь пропадёт</span>
-      <span class="sp"></span>
-      <button class="btn" id="helpBtn" type="button" aria-label="Горячие клавиши"><svg class="ic"><use href="#i-kbd"/></svg><span class="lbl">Клавиши</span></button>
+      <span class="sp" data-tauri-drag-region></span>
       <button class="btn pri" id="addBtn" type="button"><svg class="ic"><use href="#i-plus"/></svg><span class="lbl">Добавить mp3</span></button>
     </header>
   
@@ -219,7 +207,7 @@
           <h2>Перетащи сюда mp3-файлы</h2>
           <p>Треки, очередь, громкость и место в песне запоминаются в этом браузере. Закрыл вкладку, открыл снова, и можно продолжать.</p>
           <button class="btn pri" id="addBtn2" type="button"><svg class="ic"><use href="#i-plus"/></svg><span>Выбрать файлы</span></button>
-          <small>Пробел: пауза. Z и B: назад и вперёд. Все клавиши: «?»</small>
+          
         </div>
         <div class="stage-in" id="stageIn" hidden>
           <div class="vtitle" id="vtitle" aria-hidden="true"></div>
@@ -252,27 +240,6 @@
   
     <div class="toast" id="toast" role="status" aria-live="polite"></div>
   
-    <div class="sheet" id="sheet" hidden>
-      <div class="card" role="dialog" aria-label="Горячие клавиши">
-        <h2>Клавиши</h2>
-        <p class="note">Работают и на русской раскладке. Esc закрывает окно.</p>
-        <div class="keys">
-          <div><kbd>Пробел</kbd><kbd>C</kbd></div><span>Пауза / продолжить</span>
-          <div><kbd>X</kbd></div><span>Играть с начала</span>
-          <div><kbd>V</kbd></div><span>Стоп</span>
-          <div><kbd>Z</kbd><kbd>B</kbd></div><span>Предыдущий / следующий трек</span>
-          <div><kbd>Ctrl</kbd><kbd>←</kbd><kbd>→</kbd></div><span>То же самое</span>
-          <div><kbd>←</kbd><kbd>→</kbd></div><span>Перемотка на 5 секунд (с Shift: на 30)</span>
-          <div><kbd>↑</kbd><kbd>↓</kbd></div><span>Громкость</span>
-          <div><kbd>M</kbd></div><span>Без звука</span>
-          <div><kbd>S</kbd></div><span>Перемешать</span>
-          <div><kbd>R</kbd></div><span>Повтор: выкл, вся очередь, один трек</span>
-          <div><kbd>/</kbd></div><span>Поиск по очереди</span>
-          <div><kbd>O</kbd></div><span>Добавить mp3</span>
-          <div><kbd>?</kbd><kbd>H</kbd></div><span>Это окно</span>
-        </div>
-      </div>
-    </div>
   </div>
   
   <div class="veil" id="veil">Отпусти, чтобы добавить mp3</div>
@@ -284,7 +251,7 @@
   'use strict';
   const $ = s => document.querySelector(s);
   const audio = $('#audio'), list = $('#list'), seek = $('#seek'), vol = $('#vol'), picker = $('#picker');
-  const sheet = $('#sheet'), search = $('#search'), clearBtn = $('#clearBtn');
+  const search = $('#search'), clearBtn = $('#clearBtn');
   
   const S = {
     tracks: new Map(), order: [], cur: null, time: 0, pendingSeek: null,
@@ -356,7 +323,7 @@
   let lastSave = 0, idbTimer = 0;
   function saveState(force) {
     const now = Date.now();
-    if (!force && now - lastSave < 1000) return;
+    if (!force && now - lastSave < 5000) return;
     lastSave = now;
     const st = { id: 'state', t: now, order: S.order, cur: S.cur, time: S.time, volume: S.volume, muted: S.muted, shuffle: S.shuffle, repeat: S.repeat };
     try { localStorage.setItem(LS, JSON.stringify(st)); } catch {}
@@ -651,8 +618,21 @@
   function setBg(t) {
     const nxt = artFlip ? $('#artA') : $('#artB'), prv = artFlip ? $('#artB') : $('#artA');
     artFlip = !artFlip;
-    nxt.style.cssText = t ? artCSS(t) : '';
-    nxt.classList.add('on'); prv.classList.remove('on');
+    const show = css => { nxt.style.cssText = css; nxt.classList.add('on'); prv.classList.remove('on'); };
+    if (!t) { show(''); return; }
+    if (!t.coverUrl) { show(phStyle(t.id) + ';filter:brightness(.8)'); return; }
+    const img = new Image(), id = t.id;
+    img.onload = () => {
+      if (lastBg !== id) return;
+      const c = document.createElement('canvas'); c.width = c.height = 40;
+      const x = c.getContext('2d');
+      const r = Math.max(40 / img.width, 40 / img.height);
+      x.drawImage(img, (40 - img.width * r) / 2, (40 - img.height * r) / 2, img.width * r, img.height * r);
+      x.fillStyle = 'rgba(0,0,0,.4)'; x.fillRect(0, 0, 40, 40);
+      show(`background-image:url('${c.toDataURL('image/jpeg', .8)}')`);
+    };
+    img.onerror = () => show(phStyle(id));
+    img.src = t.coverUrl;
   }
   function renderNow() {
     const t = cur(), has = S.tracks.size > 0;
@@ -701,12 +681,9 @@
   }
   
   /* ---------- UI wiring ---------- */
-  function toggleSheet(force) { sheet.hidden = force === undefined ? !sheet.hidden : !force; }
   function bindUI() {
     $('#addBtn').onclick = $('#addBtn2').onclick = () => picker.click();
     picker.addEventListener('change', () => { if (picker.files.length) addFiles(picker.files); picker.value = ''; });
-    $('#helpBtn').onclick = () => toggleSheet();
-    sheet.addEventListener('click', e => { if (e.target === sheet) toggleSheet(false); });
     $('#play').onclick = toggle; $('#prev').onclick = prev; $('#next').onclick = next;
     $('#shuf').onclick = toggleShuffle; $('#rep').onclick = cycleRepeat; $('#mute').onclick = toggleMute;
   
@@ -756,8 +733,7 @@
       }
       if (e.metaKey || e.altKey) return;
       const c = e.code; let handled = true;
-      if (e.key === '?') toggleSheet();
-      else if (e.ctrlKey) { if (c === 'ArrowRight') next(); else if (c === 'ArrowLeft') prev(); else handled = false; }
+      if (e.ctrlKey) { if (c === 'ArrowRight') next(); else if (c === 'ArrowLeft') prev(); else handled = false; }
       else switch (c) {
         case 'Space': case 'KeyC': toggle(); break;
         case 'KeyX': playFromStart(); break;
@@ -773,8 +749,6 @@
         case 'KeyR': cycleRepeat(); break;
         case 'Slash': search.focus(); break;
         case 'KeyO': picker.click(); break;
-        case 'KeyH': toggleSheet(); break;
-        case 'Escape': if (!sheet.hidden) toggleSheet(false); else handled = false; break;
         default: handled = false;
       }
       if (handled) e.preventDefault();
